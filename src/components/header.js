@@ -33,10 +33,9 @@ export default class Header extends React.Component {
     }
     action=(action, formData, messageTxet) => {
         const loading = message.loading(messageTxet[action][0], 0);
-        const myFetchOptions = {
+        fetch(`http://newsapi.gugujiankong.com/Handler.ashx?action=${action}&username=${formData.userName}&password=${formData.password}&r_userName=${formData.r_userName}&r_password=${formData.r_password}&r_confirmPassword=${formData.r_confirmPassword}`, {
             method: 'GET'
-        };
-        fetch(`http://newsapi.gugujiankong.com/Handler.ashx?action=${action}&username=${formData.userName}&password=${formData.password}&r_userName=${formData.r_userName}&r_password=${formData.r_password}&r_confirmPassword=${formData.r_confirmPassword}`, myFetchOptions).then(response => response.json()).then(json => {
+        }).then(response => response.json()).then(json => {
             if (action === "login") {
                 this.setState({
                     userNickName: json.NickUserName,

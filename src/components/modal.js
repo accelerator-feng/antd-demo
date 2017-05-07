@@ -37,8 +37,8 @@ class MyModal extends React.Component {
         }
     }
     checkConfirm = (rule, value, callback) => {
-        const form = this.props.form;
-        if (value && this.state.confirmDirty) {
+        const {form, confirmDirty} = this.props;
+        if (value && confirmDirty) {
             form.validateFields(['r_confirmPassword'], {
                 force: true
             });

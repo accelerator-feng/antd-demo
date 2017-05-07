@@ -2,28 +2,28 @@ html{
   font-size: 50px;
 }
 
-#mobileHeader{
+#mobileTop{
   flex: 1;
   background: #f6f6f6;
 }
 
-#mobileHeader section{
+#mobileTop section{
   border-bottom: 1px solid #2db7f5;
   padding-left: 10px;
 }
 
-#mobileHeader section img{
+#mobileTop section img{
   height: 50px;
 }
 
-#mobileHeader section span{
+#mobileTop section span{
   font-size: 35px;
   vertical-align: top;
   padding-left: 5px;
   color: #2db7f5;
 }
 
-#mobileHeader i{
+#mobileTop i{
   font-size: 0.5rem;
   float: right;
   margin-right: 0.3rem;
