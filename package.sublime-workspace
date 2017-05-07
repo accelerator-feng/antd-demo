@@ -105,6 +105,7 @@
 	},
 	"file_history":
 	[
+		"/github/antd-demo/README.md",
 		"/github/antd-demo/node_modules/_express@4.15.2@express/lib/response.js",
 		"/github/antd-demo/src/components/mobileHeader.js",
 		"/github/antd-demo/src/css/pc.css",
@@ -134,6 +135,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"abcd",
 			"Modal",
 			"let",
 			"handleSubmit",

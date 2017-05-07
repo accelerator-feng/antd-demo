@@ -7,16 +7,16 @@ html{
   background: #f6f6f6;
 }
 
-#mobileHeader header{
+#mobileHeader section{
   border-bottom: 1px solid #2db7f5;
   padding-left: 10px;
 }
 
-#mobileHeader header img{
+#mobileHeader section img{
   height: 50px;
 }
 
-#mobileHeader header span{
+#mobileHeader section span{
   font-size: 35px;
   vertical-align: top;
   padding-left: 5px;
