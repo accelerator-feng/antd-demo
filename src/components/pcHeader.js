@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col } from 'antd';
 import logo from '../assets/logo.png';
-import { Menu, Icon,  Button } from 'antd';
+import { Menu, Icon, Button } from 'antd';
 
 export default class PCHeader extends React.Component {
     constructor(props) {
@@ -10,7 +10,7 @@ export default class PCHeader extends React.Component {
             current: 'headline',
         }
     }
-    handleClick=(e) => {
+    handleClick = (e) => {
         this.setState({
             current: e.key
         });

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Router, Route, hashHistory, Link } from 'react-router';
-import {Card} from 'antd';
+import { Card } from 'antd';
 
 export default class PCNewsBlock extends React.Component {
     constructor(props) {
@@ -20,7 +20,7 @@ export default class PCNewsBlock extends React.Component {
         const {news} = this.state;
         const newsList = news.length ? news.map((newsItem, index) => <li key={index}><Link to={`details/${newsItem.uniquekey}`} target="_blank">{newsItem.title}</Link></li>) : '没有加载到新闻';
         return (
-            <div className="newsList">
+            <div>
               <Card>
               <ul>
                  {newsList}
