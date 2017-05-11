@@ -1,13 +1,13 @@
-import React from 'react';
-import { message } from 'antd';
-import MediaQuery from 'react-responsive';
+import React from 'react'
+import { message } from 'antd'
+import MediaQuery from 'react-responsive'
 import MyModal from './modal.js'
-import PCHeader from './PCHeader.js';
+import PCHeader from './PCHeader.js'
 import MobileHeader from './mobileHeader.js'
 
 export default class Header extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             modalVisible: false,
             hasLogined: false,
@@ -16,62 +16,77 @@ export default class Header extends React.Component {
         }
     }
     componentWillMount() {
-        if (localStorage.userid !== "") {
+        if (localStorage.userid !== '') {
             this.setState({
-                hasLogined: true
-            });
+                hasLogined: true,
+            })
             this.setState({
                 userNickName: localStorage.userNickName,
-                userid: localStorage.userid
-            });
+                userid: localStorage.userid,
+            })
         }
     }
-    setModalVisible=(value) => {
+    setModalVisible = value => {
         this.setState({
-            modalVisible: value
-        });
+            modalVisible: value,
+        })
     }
-    action=(action, formData, messageTxet) => {
-        const loading = message.loading(messageTxet[action][0], 0);
-        fetch(`http://newsapi.gugujiankong.com/Handler.ashx?action=${action}&username=${formData.userName}&password=${formData.password}&r_userName=${formData.r_userName}&r_password=${formData.r_password}&r_confirmPassword=${formData.r_confirmPassword}`, {
-            method: 'GET'
-        }).then(response => response.json()).then(json => {
-            if (action === "login") {
-                this.setState({
-                    userNickName: json.NickUserName,
-                    userid: json.UserId
-                });
-                localStorage.userid = json.UserId;
-                localStorage.userNickName = json.NickUserName;
-            }
-            message.destroy(loading);
-            message.success(messageTxet[action][1]);
-        });
+    action = (action, formData, messageTxet) => {
+        const loading = message.loading(messageTxet[action][0], 0)
+        fetch(
+            `http://newsapi.gugujiankong.com/Handler.ashx?action=${action}&username=${formData.userName}&password=${formData.password}&r_userName=${formData.r_userName}&r_password=${formData.r_password}&r_confirmPassword=${formData.r_confirmPassword}`,
+            {
+                method: 'GET',
+            },
+        )
+            .then(response => response.json())
+            .then(json => {
+                if (action === 'login') {
+                    this.setState({
+                        userNickName: json.NickUserName,
+                        userid: json.UserId,
+                    })
+                    localStorage.userid = json.UserId
+                    localStorage.userNickName = json.NickUserName
+                }
+                message.destroy(loading)
+                message.success(messageTxet[action][1])
+            })
         if (action === 'login') {
             this.setState({
-                hasLogined: true
-            });
+                hasLogined: true,
+            })
         }
     }
-    logout=() => {
-        localStorage.userid = '';
-        localStorage.userNickName = '';
+    logout = () => {
+        localStorage.userid = ''
+        localStorage.userNickName = ''
         this.setState({
-            hasLogined: false
-        });
+            hasLogined: false,
+        })
     }
     render() {
         return (
             <header>
-            <MediaQuery query='(min-device-width:1224px)'>
-          <PCHeader logout={this.logout} setModalVisible={this.setModalVisible} {...this.state}/>
-      </MediaQuery>
-      <MediaQuery query='(max-device-width:1224px)'>
-          <MobileHeader hasLogined={this.state.hasLogined} setModalVisible={this.setModalVisible}/>
-      </MediaQuery>
-        <MyModal action={this.action} modalVisible={this.state.modalVisible} setModalVisible={this.setModalVisible}/>
-      </header>
-        );
+                <MediaQuery query="(min-device-width:1224px)">
+                    <PCHeader
+                        logout={this.logout}
+                        setModalVisible={this.setModalVisible}
+                        {...this.state}
+                    />
+                </MediaQuery>
+                <MediaQuery query="(max-device-width:1224px)">
+                    <MobileHeader
+                        hasLogined={this.state.hasLogined}
+                        setModalVisible={this.setModalVisible}
+                    />
+                </MediaQuery>
+                <MyModal
+                    action={this.action}
+                    modalVisible={this.state.modalVisible}
+                    setModalVisible={this.setModalVisible}
+                />
+            </header>
+        )
     }
 }
-
