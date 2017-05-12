@@ -1,5 +1,5 @@
 import React from 'react'
-import { Router, Route, hashHistory, Link } from 'react-router'
+import { Link } from 'react-router'
 import { Card } from 'antd'
 
 export default class PCNewsImageBlock extends React.Component {
