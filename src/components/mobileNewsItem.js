@@ -1,5 +1,5 @@
 import React from 'react'
-import { Router, Route, hashHistory, Link } from 'react-router'
+import { Link } from 'react-router'
 import { Row, Col } from 'antd'
 
 export default class MobileNewsItem extends React.Component {

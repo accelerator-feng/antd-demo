@@ -1,6 +1,7 @@
 import React from 'react'
 import { Row, Col, BackTop } from 'antd'
 import PCNewsImageBlock from './PCNews_imageBlock'
+import Comments from './comments'
 export default class NewsDetails extends React.Component {
     constructor(props) {
         super(props)
@@ -38,6 +39,10 @@ export default class NewsDetails extends React.Component {
                                   className="articleContainer"
                                   dangerouslySetInnerHTML={this.creatMarkup()}
                               />
+                              <hr />
+                              <Comments
+                                  uniquekey={this.props.params.uniquekey}
+                              />
                           </Col>
                           <BackTop />
                       </Row>
@@ -47,6 +52,10 @@ export default class NewsDetails extends React.Component {
                               <div
                                   className="articleContainer"
                                   dangerouslySetInnerHTML={this.creatMarkup()}
+                              />
+                              <hr />
+                              <Comments
+                                  uniquekey={this.props.params.uniquekey}
                               />
                           </Col>
                           <Col span={6}>

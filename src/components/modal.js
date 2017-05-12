@@ -61,10 +61,12 @@ class MyModal extends React.Component {
             state.field[state.action],
             {},
             (err, values) => {
-                !err && this.props.action(state.action, formData, state.message)
+                if (!err) {
+                    this.props.action(state.action, formData, state.message)
+                    this.handleCancel()
+                }
             },
         )
-        this.handleCancel()
     }
     handleCancel = () => {
         const props = this.props
