@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 import logo from '../assets/logo.png'
 import { Icon } from 'antd'
 
@@ -8,7 +9,7 @@ export default class mobileHeader extends React.Component {
     }
     render() {
         const userShow = this.props.hasLogined
-            ? <Icon type="inbox" />
+            ? <Link to="/usercenter"><Icon type="inbox" /></Link>
             : <Icon type="setting" onClick={this.login} />
         return (
             <div id="mobileTop">

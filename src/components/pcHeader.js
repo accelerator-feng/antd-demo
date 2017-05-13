@@ -1,7 +1,7 @@
 import React from 'react'
-import { Row, Col } from 'antd'
+import { Row, Col, Menu, Icon, Button } from 'antd'
+import { Link } from 'react-router'
 import logo from '../assets/logo.png'
-import { Menu, Icon, Button } from 'antd'
 
 export default class PCHeader extends React.Component {
     constructor(props) {
@@ -24,8 +24,11 @@ export default class PCHeader extends React.Component {
                   <Button type="primary" htmlType="button">
                       {this.props.userNickName}
                   </Button>
-                  {'  '}
-                  <Button type="dashed" htmlType="button">个人中心</Button>{'  '}
+                  &nbsp;&nbsp;
+                  <Link target="_blank" to="/usercenter">
+                      <Button type="dashed" htmlType="button">个人中心</Button>
+                  </Link>
+                  &nbsp;&nbsp;
                   <Button
                       type="dashed"
                       htmlType="button"
@@ -40,7 +43,7 @@ export default class PCHeader extends React.Component {
             <Row>
                 <Col span={2} />
                 <Col span={4}>
-                    <a href="" className="logo">
+                    <a href="/" className="logo">
                         <img src={logo} alt="logo" />
                         <span>ReactNews</span>
                     </a>

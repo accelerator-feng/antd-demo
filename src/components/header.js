@@ -1,6 +1,5 @@
 import React from 'react'
 import { message } from 'antd'
-import MediaQuery from 'react-responsive'
 import MyModal from './modal.js'
 import PCHeader from './PCHeader.js'
 import MobileHeader from './mobileHeader.js'
@@ -66,27 +65,27 @@ export default class Header extends React.Component {
         })
     }
     render() {
+        const isMobile = this.props.route.isMobile
+        console.log(isMobile)
         return (
-            <header>
-                <MediaQuery query="(min-device-width:1224px)">
-                    <PCHeader
-                        logout={this.logout}
-                        setModalVisible={this.setModalVisible}
-                        {...this.state}
-                    />
-                </MediaQuery>
-                <MediaQuery query="(max-device-width:1224px)">
-                    <MobileHeader
-                        hasLogined={this.state.hasLogined}
-                        setModalVisible={this.setModalVisible}
-                    />
-                </MediaQuery>
+            <div>
+                {isMobile
+                    ? <MobileHeader
+                          hasLogined={this.state.hasLogined}
+                          setModalVisible={this.setModalVisible}
+                      />
+                    : <PCHeader
+                          logout={this.logout}
+                          setModalVisible={this.setModalVisible}
+                          {...this.state}
+                      />}
                 <MyModal
                     action={this.action}
                     modalVisible={this.state.modalVisible}
                     setModalVisible={this.setModalVisible}
                 />
-            </header>
+                {this.props.children}
+            </div>
         )
     }
 }
