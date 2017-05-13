@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row, Col, Form, Input, Button, Card } from 'antd'
+import { Row, Col, Form, Input, Button, Card, notification } from 'antd'
 const FormItem = Form.Item
 
 class Comments extends React.Component {
@@ -43,6 +43,21 @@ class Comments extends React.Component {
                 })
             })
     }
+    addUserCollection = () => {
+        fetch(
+            `http://newsapi.gugujiankong.com/Handler.ashx?action=uc&userid=${localStorage.uerid}&uniquekey=${this.props.uniquekey}`,
+            {
+                method: 'GET',
+            },
+        )
+            .then(response => response.json())
+            .then(json => {
+                notification['success']({
+                    message: 'ReactNews提醒',
+                    description: '收藏此文章成功',
+                })
+            })
+    }
     render() {
         const { getFieldDecorator } = this.props.form
         const comments = this.state.comments
@@ -76,6 +91,12 @@ class Comments extends React.Component {
                             </FormItem>
                             <Button type="primary" htmlType="submit">
                                 提交评论
+                            </Button>
+                            <Button
+                                type="primary"
+                                htmlType="button"
+                                onClick={this.addUserCollection}>
+                                收藏该文章
                             </Button>
                         </Form>
                     </Col>
