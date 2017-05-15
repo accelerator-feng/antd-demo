@@ -45,7 +45,7 @@ class Comments extends React.Component {
     }
     addUserCollection = () => {
         fetch(
-            `http://newsapi.gugujiankong.com/Handler.ashx?action=uc&userid=${localStorage.uerid}&uniquekey=${this.props.uniquekey}`,
+            `http://newsapi.gugujiankong.com/Handler.ashx?action=uc&userid=${localStorage.userid}&uniquekey=${this.props.uniquekey}`,
             {
                 method: 'GET',
             },

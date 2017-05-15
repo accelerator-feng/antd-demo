@@ -1,17 +1,61 @@
 import React from 'react'
-import { Tabs, Row, Col, Upload, Icon, Modal } from 'antd'
+import { Tabs, Row, Col, Upload, Icon, Modal, Card } from 'antd'
 const TabPane = Tabs.TabPane
 
 export default class UserCenter extends React.Component {
     constructor() {
         super()
         this.state = {
+            userCollection: '',
+            userComments: '',
             previewImage: '',
             previewVisible: false,
         }
     }
+    componentDidMount() {
+        fetch(
+            `http://newsapi.gugujiankong.com/Handler.ashx?action=getuc&userid=${localStorage.userid}`,
+        )
+            .then(res => res.json())
+            .then(json => this.setState({ userCollection: json }))
+        fetch(
+            `http://newsapi.gugujiankong.com/Handler.ashx?action=getusercomments&userid=${localStorage.userid}`,
+        )
+            .then(res => res.json())
+            .then(json => this.setState({ userComments: json }))
+    }
 
     render() {
+        const { userCollection, userComments } = this.state
+        const userCollectionList = userCollection.length
+            ? userCollection.map((uc, index) => (
+                  <Card
+                      key={index}
+                      title={uc.uniquekey}
+                      extra={
+                          <a href={`/#/details/${uc.uniquekey}`}>
+                              查看
+                          </a>
+                      }>
+                      <p>{uc.Title}</p>
+                  </Card>
+              ))
+            : '您还没有收藏任何的新闻，快去收藏一些新闻吧。'
+
+        const userCommentsList = userComments.length
+            ? userComments.map((comment, index) => (
+                  <Card
+                      key={index}
+                      title={`于 ${comment.datetime} 评论了文章 ${comment.uniquekey}`}
+                      extra={
+                          <a href={`/#/details/${comment.uniquekey}`}>
+                              查看
+                          </a>
+                      }>
+                      <p>{comment.Comments}</p>
+                  </Card>
+              ))
+            : '您还没有发表过任何评论。'
         const props = {
             action: 'http://newsapi.gugujiankong.com/handler.ashx',
             headers: {
@@ -35,12 +79,45 @@ export default class UserCenter extends React.Component {
         return (
             <div>
                 {isMobile
-                    ? <Row>
+                    ? <Tabs>
+                          <TabPane tab="我的收藏列表" key="1">
+                              <Row>
+                                  <Col span={24}>
+                                      {userCollectionList}
+                                  </Col>
+                              </Row>
+                          </TabPane>
+                          <TabPane tab="我的评论列表" key="2">
+                              <Row>
+                                  <Col span={24}>
+                                      {userCommentsList}
+                                  </Col>
+                              </Row>
+                          </TabPane>
+                          <TabPane tab="头像设置" key="3" />
+                      </Tabs>
+                    : <Row>
                           <Col span={2} />
                           <Col span={20}>
                               <Tabs>
-                                  <TabPane tab="收藏列表" key="1">1</TabPane>
-                                  <TabPane tab="评论列表" key="2">2</TabPane>
+                                  <TabPane tab="收藏列表" key="1">
+                                      <div className="comment">
+                                          <Row>
+                                              <Col span={24}>
+                                                  {userCollectionList}
+                                              </Col>
+                                          </Row>
+                                      </div>
+                                  </TabPane>
+                                  <TabPane tab="评论列表" key="2">
+                                      <div className="comment">
+                                          <Row>
+                                              <Col span={24}>
+                                                  {userCommentsList}
+                                              </Col>
+                                          </Row>
+                                      </div>
+                                  </TabPane>
                                   <TabPane tab="头像设置" key="3">
                                       <div class="clearfix">
                                           <Upload {...props}>
@@ -65,12 +142,7 @@ export default class UserCenter extends React.Component {
                               </Tabs>
                           </Col>
                           <Col span={2} />
-                      </Row>
-                    : <Tabs>
-                          <TabPane tab="我的收藏列表" key="1">1</TabPane>
-                          <TabPane tab="我的评论列表" key="2">2</TabPane>
-                          <TabPane tab="头像设置" key="3">1</TabPane>
-                      </Tabs>}
+                      </Row>}
             </div>
         )
     }
