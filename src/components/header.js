@@ -66,7 +66,6 @@ export default class Header extends React.Component {
     }
     render() {
         const isMobile = this.props.route.isMobile
-        console.log(isMobile)
         return (
             <div>
                 {isMobile

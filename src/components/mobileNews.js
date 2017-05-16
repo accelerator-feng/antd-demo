@@ -13,19 +13,19 @@ export default class MobileNews extends React.Component {
                         <div className="mobileCarousel">
                             <MyCarousel />
                         </div>
-                        <MobileNewsItem count={20} type="top" />
+                        <MobileNewsItem count={5} type="top" />
                     </TabPane>
                     <TabPane tab="社会" key="social">
-                        <MobileNewsItem count={20} type="shehui" />
+                        <MobileNewsItem count={5} type="shehui" />
                     </TabPane>
                     <TabPane tab="国内" key="national">
-                        <MobileNewsItem count={20} type="guonei" />
+                        <MobileNewsItem count={5} type="guonei" />
                     </TabPane>
                     <TabPane tab="国际" key="international">
-                        <MobileNewsItem count={20} type="guoji" />
+                        <MobileNewsItem count={5} type="guoji" />
                     </TabPane>
                     <TabPane tab="娱乐" key="entertainment">
-                        <MobileNewsItem count={20} type="yule" />
+                        <MobileNewsItem count={5} type="yule" />
                     </TabPane>
                 </Tabs>
             </div>

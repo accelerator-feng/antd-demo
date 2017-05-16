@@ -69,7 +69,7 @@ class Comments extends React.Component {
                                 key={index}
                                 title={comment.UserName}
                                 extra={
-                                    <a href="javascript:void(0)">
+                                    <a href="javascript:;">
                                         发布于 {comment.datetime}
                                     </a>
                                 }>

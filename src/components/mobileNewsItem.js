@@ -1,20 +1,55 @@
 import React from 'react'
 import { Link } from 'react-router'
 import { Row, Col } from 'antd'
+import Tloader from 'react-touch-loader'
 
 export default class MobileNewsItem extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             news: '',
+            count: 5,
+            hasMore: 0,
+            initializing: 1,
+            refreshedAt: Date.now(),
         }
+    }
+    handleRefresh(resolve, reject) {
+        fetch(
+            `http://newsapi.gugujiankong.com/Handler.ashx?action=getnews&type=${this.props.type}&count=${this.state.count}`,
+        )
+            .then(response => response.json())
+            .then(json => {
+                this.setState({ news: json })
+                resolve()
+            })
+    }
+    loadMore = resolve => {
+        setTimeout(() => {
+            this.setState(
+                prevState => {
+                    return { count: prevState.count + 5 }
+                },
+                () => {
+                    fetch(
+                        `http://newsapi.gugujiankong.com/Handler.ashx?action=getnews&type=${this.props.type}&count=${this.state.count}`,
+                    )
+                        .then(response => response.json())
+                        .then(json =>
+                            this.setState({
+                                news: json,
+                                hasMore: this.state.count > 0 &&
+                                    this.state.count < 50,
+                            }),
+                        )
+                        .then(data => resolve())
+                },
+            )
+        }, 2e3)
     }
     componentDidMount() {
         fetch(
             `http://newsapi.gugujiankong.com/Handler.ashx?action=getnews&type=${this.props.type}&count=${this.props.count}`,
-            {
-                method: 'GET',
-            },
         )
             .then(response => response.json())
             .then(json =>
@@ -22,6 +57,7 @@ export default class MobileNewsItem extends React.Component {
                     news: json,
                 }),
             )
+            .then(data => this.setState({ hasMore: 1, initializing: 2 }))
     }
     render() {
         const { news } = this.state
@@ -56,6 +92,18 @@ export default class MobileNewsItem extends React.Component {
                   </section>
               ))
             : '没有加载到新闻'
-        return <Row><Col span={24}>{newsList}</Col></Row>
+        return (
+            <Row>
+                <Col span={24}>
+                    <Tloader
+                        className="main"
+                        onLoadMore={this.loadMore}
+                        hasMore={this.state.hasMore}
+                        initializing={this.state.initializing}>
+                        {newsList}
+                    </Tloader>
+                </Col>
+            </Row>
+        )
     }
 }
