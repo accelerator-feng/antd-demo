@@ -1,8 +1,8 @@
 import React from 'react'
 import { message } from 'antd'
-import MyModal from './modal.js'
-import PCHeader from './PCHeader.js'
-import MobileHeader from './mobileHeader.js'
+import PCHeader from './PC/PCHeader'
+import MobileHeader from './mobile/mobileHeader'
+import MyModal from './modal'
 
 export default class Header extends React.Component {
     constructor(props) {
@@ -11,17 +11,13 @@ export default class Header extends React.Component {
             modalVisible: false,
             hasLogined: false,
             userNickName: '',
-            userid: 0,
         }
     }
     componentWillMount() {
         if (localStorage.userid !== '') {
             this.setState({
                 hasLogined: true,
-            })
-            this.setState({
                 userNickName: localStorage.userNickName,
-                userid: localStorage.userid,
             })
         }
     }
@@ -34,16 +30,13 @@ export default class Header extends React.Component {
         const loading = message.loading(messageTxet[action][0], 0)
         fetch(
             `http://newsapi.gugujiankong.com/Handler.ashx?action=${action}&username=${formData.userName}&password=${formData.password}&r_userName=${formData.r_userName}&r_password=${formData.r_password}&r_confirmPassword=${formData.r_confirmPassword}`,
-            {
-                method: 'GET',
-            },
         )
             .then(response => response.json())
             .then(json => {
                 if (action === 'login') {
                     this.setState({
+                        hasLogined: true,
                         userNickName: json.NickUserName,
-                        userid: json.UserId,
                     })
                     localStorage.userid = json.UserId
                     localStorage.userNickName = json.NickUserName
@@ -51,36 +44,32 @@ export default class Header extends React.Component {
                 message.destroy(loading)
                 message.success(messageTxet[action][1])
             })
-        if (action === 'login') {
-            this.setState({
-                hasLogined: true,
-            })
-        }
     }
     logout = () => {
-        localStorage.userid = ''
-        localStorage.userNickName = ''
+        localStorage.userNickName = localStorage.userid = ''
         this.setState({
             hasLogined: false,
         })
     }
     render() {
-        const isMobile = this.props.route.isMobile
+        const { modalVisible, hasLogined, userNickName } = this.state,
+            isMobile = this.props.route.isMobile
         return (
             <div>
                 {isMobile
                     ? <MobileHeader
-                          hasLogined={this.state.hasLogined}
+                          hasLogined={hasLogined}
                           setModalVisible={this.setModalVisible}
                       />
                     : <PCHeader
+                          userNickName={userNickName}
+                          hasLogined={hasLogined}
                           logout={this.logout}
                           setModalVisible={this.setModalVisible}
-                          {...this.state}
                       />}
                 <MyModal
                     action={this.action}
-                    modalVisible={this.state.modalVisible}
+                    modalVisible={modalVisible}
                     setModalVisible={this.setModalVisible}
                 />
                 {this.props.children}

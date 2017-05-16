@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
-import logo from '../assets/logo.png'
 import { Icon } from 'antd'
+import logo from '../../assets/logo.png'
 
 export default class mobileHeader extends React.Component {
     login = () => {
@@ -14,8 +14,10 @@ export default class mobileHeader extends React.Component {
         return (
             <div id="mobileTop">
                 <section>
-                    <img src={logo} alt="logo" />
-                    <span>ReactNews</span>
+                    <a href="/">
+                        <img src={logo} alt="logo" />
+                        <span>ReactNews</span>
+                    </a>
                     {userShow}
                 </section>
             </div>

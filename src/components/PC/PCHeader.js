@@ -1,7 +1,7 @@
 import React from 'react'
-import { Row, Col, Menu, Icon, Button } from 'antd'
 import { Link } from 'react-router'
-import logo from '../assets/logo.png'
+import { Row, Col, Menu, Icon, Button } from 'antd'
+import logo from '../../assets/logo.png'
 
 export default class PCHeader extends React.Component {
     constructor(props) {
@@ -25,7 +25,7 @@ export default class PCHeader extends React.Component {
                       {this.props.userNickName}
                   </Button>
                   &nbsp;&nbsp;
-                  <Link target="_blank" to="/usercenter">
+                  <Link to="/usercenter">
                       <Button type="dashed" htmlType="button">个人中心</Button>
                   </Link>
                   &nbsp;&nbsp;

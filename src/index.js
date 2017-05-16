@@ -2,14 +2,14 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Router, Route, hashHistory, IndexRoute } from 'react-router'
 import MediaQuery from 'react-responsive'
-import 'antd/dist/antd.css'
 import './css/pc.css'
 import './css/mobile.css'
+import 'antd/dist/antd.css'
 import Header from './components/header'
-import PCNews from './components/PCNews'
-import MobileNews from './components/mobileNews'
+import PCNews from './components/PC/PCNews'
+import MobileNews from './components/mobile/mobileNews'
 import NewsDetails from './components/newsDetails'
-import UserCenter from './components/UserCenter'
+import UserCenter from './components/userCenter'
 import Footer from './components/footer'
 
 export default class Index extends React.Component {
@@ -52,3 +52,4 @@ export default class Index extends React.Component {
 }
 
 ReactDOM.render(<Index />, document.getElementById('root'))
+

@@ -59,25 +59,25 @@ class Comments extends React.Component {
             })
     }
     render() {
-        const { getFieldDecorator } = this.props.form
-        const comments = this.state.comments
-        const commentList = comments.length
-            ? comments.map(
-                  (comment, index) =>
-                      index > comments.length - 20 && comment.Comments
-                          ? <Card
-                                key={index}
-                                title={comment.UserName}
-                                extra={
-                                    <a href="javascript:;">
-                                        发布于 {comment.datetime}
-                                    </a>
-                                }>
-                                <p>{comment.Comments}</p>
-                            </Card>
-                          : null,
-              )
-            : '没有加载到任何评论'
+        const { getFieldDecorator } = this.props.form,
+            comments = this.state.comments,
+            commentList = comments.length
+                ? comments.map(
+                      (comment, index) =>
+                          index > comments.length - 20 && comment.Comments
+                              ? <Card
+                                    key={index}
+                                    title={comment.UserName}
+                                    extra={
+                                        <a href="javascript:;">
+                                            发布于 {comment.datetime}
+                                        </a>
+                                    }>
+                                    <p>{comment.Comments}</p>
+                                </Card>
+                              : null,
+                  )
+                : '没有加载到任何评论'
         return (
             <div className="comment">
                 <Row>

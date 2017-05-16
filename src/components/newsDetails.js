@@ -1,7 +1,8 @@
 import React from 'react'
 import { Row, Col, BackTop } from 'antd'
-import PCNewsImageBlock from './PCNews_imageBlock'
+import PCNewsImageBlock from './PC/PCNews_imageBlock'
 import Comments from './comments'
+
 export default class NewsDetails extends React.Component {
     constructor(props) {
         super(props)
@@ -12,9 +13,6 @@ export default class NewsDetails extends React.Component {
     componentDidMount() {
         fetch(
             `http://newsapi.gugujiankong.com/Handler.ashx?action=getnewsitem&uniquekey=${this.props.params.uniquekey}`,
-            {
-                method: 'GET',
-            },
         )
             .then(response => response.json())
             .then(json => {

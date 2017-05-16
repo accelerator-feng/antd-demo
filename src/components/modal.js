@@ -1,7 +1,6 @@
 import React from 'react'
 import { Icon, Tabs, Form, Input, Button, Modal } from 'antd'
-const FormItem = Form.Item
-const TabPane = Tabs.TabPane
+const FormItem = Form.Item, TabPane = Tabs.TabPane
 
 class MyModal extends React.Component {
     constructor(props) {
@@ -9,19 +8,18 @@ class MyModal extends React.Component {
         this.state = {
             confirmDirty: false,
             action: 'register',
-            message: {
-                login: ['登陆中', '成功登陆'],
-                register: ['注册中', '注册成功'],
-            },
-            field: {
-                login: ['userName', 'password'],
-                register: ['r_userName', 'r_password', 'r_confirmPassword'],
-            },
+        }
+        this.message = {
+            login: ['登陆中', '成功登陆'],
+            register: ['注册中', '注册成功'],
+        }
+        this.field = {
+            login: ['userName', 'password'],
+            register: ['r_userName', 'r_password', 'r_confirmPassword'],
         }
     }
     handleTabChange = key => {
-        const form = this.props.form
-        form.resetFields()
+        this.props.form.resetFields()
         key === 'login'
             ? this.setState({
                   action: 'login',
@@ -53,25 +51,24 @@ class MyModal extends React.Component {
             confirmDirty: this.state.confirmDirty || !!value,
         })
     }
-    handleSubmit = e => {
-        e.preventDefault()
-        const state = this.state
-        const formData = this.props.form.getFieldsValue()
-        this.props.form.validateFields(
-            state.field[state.action],
-            {},
-            (err, values) => {
-                if (!err) {
-                    this.props.action(state.action, formData, state.message)
-                    this.handleCancel()
-                }
-            },
-        )
-    }
     handleCancel = () => {
         const props = this.props
         props.setModalVisible(false)
         props.form.resetFields()
+    }
+    handleSubmit = e => {
+        e.preventDefault()
+        const field = this.field, formData = this.props.form.getFieldsValue()
+        this.props.form.validateFields(
+            field[this.state.action],
+            {},
+            (err, values) => {
+                if (!err) {
+                    this.props.action(this.state.action, formData, this.message)
+                    this.handleCancel()
+                }
+            },
+        )
     }
     render() {
         const { getFieldDecorator } = this.props.form
@@ -82,15 +79,12 @@ class MyModal extends React.Component {
                 visible={this.props.modalVisible}
                 onCancel={this.handleCancel}
                 footer={[
-                    <Button
-                        key="close"
-                        size="large"
-                        onClick={this.handleCancel}>
+                    <Button size="large" onClick={this.handleCancel}>
                         关闭
                     </Button>,
                 ]}>
                 <Tabs type="card" onChange={this.handleTabChange}>
-                    {/*      注册      */}
+                    {/*                 注册                    */}
                     <TabPane key="register" tab="注册">
                         <Form layout="horizontal" onSubmit={this.handleSubmit}>
                             <FormItem label="账户" hasFeedback>
@@ -137,11 +131,8 @@ class MyModal extends React.Component {
                             <Button type="primary" htmlType="submit">注册</Button>
                         </Form>
                     </TabPane>
-                    {/*      登陆      */}
-                    <TabPane
-                        key="login"
-                        tab="登陆"
-                        onChange={this.handleTabChange}>
+                    {/*                登陆                  */}
+                    <TabPane key="login" tab="登陆">
                         <Form layout="horizontal" onSubmit={this.handleSubmit}>
                             <FormItem>
                                 {getFieldDecorator('userName', {

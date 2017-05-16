@@ -9,12 +9,9 @@ export default class PCNewsBlock extends React.Component {
             news: '',
         }
     }
-    componentWillMount() {
+    componentDidMount() {
         fetch(
             `http://newsapi.gugujiankong.com/Handler.ashx?action=getnews&type=${this.props.type}&count=${this.props.count}`,
-            {
-                method: 'GET',
-            },
         )
             .then(response => response.json())
             .then(json =>
@@ -37,13 +34,11 @@ export default class PCNewsBlock extends React.Component {
               ))
             : '没有加载到新闻'
         return (
-            <div>
-                <Card>
-                    <ul>
-                        {newsList}
-                    </ul>
-                </Card>
-            </div>
+            <Card>
+                <ul>
+                    {newsList}
+                </ul>
+            </Card>
         )
     }
 }

@@ -899,3 +899,6 @@ section {
     color: #4c9aea;
     background-color: #eee;
 }
+.tloader-btn {
+    line-height: 1rem;
+}
