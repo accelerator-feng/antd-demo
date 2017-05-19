@@ -47,11 +47,11 @@ export default class MobileNewsItem extends React.Component {
             .then(data => this.setState({ hasMore: 1, initializing: 2 }))
     }
     render() {
-        const { news } = this.state,
+        const { news, hasMore, initializing } = this.state,
             newsList = news.length
                 ? news.map((newsItem, index) => (
                       <section
-                          key={index}
+                          key={newsItem.uniquekey}
                           className="m_article list-item special_section clearfix">
                           <Link to={`details/${newsItem.uniquekey}`}>
                               <div className="m_article_img">
@@ -84,8 +84,8 @@ export default class MobileNewsItem extends React.Component {
                 <Col span={24}>
                     <Tloader
                         onLoadMore={this.loadMore}
-                        hasMore={this.state.hasMore}
-                        initializing={this.state.initializing}>
+                        hasMore={hasMore}
+                        initializing={initializing}>
                         {newsList}
                     </Tloader>
                 </Col>

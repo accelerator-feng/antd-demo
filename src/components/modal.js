@@ -7,8 +7,8 @@ class MyModal extends React.Component {
         super(props)
         this.state = {
             confirmDirty: false,
-            action: 'register',
         }
+        this.action = 'register'
         this.message = {
             login: ['登陆中', '成功登陆'],
             register: ['注册中', '注册成功'],
@@ -20,13 +20,7 @@ class MyModal extends React.Component {
     }
     handleTabChange = key => {
         this.props.form.resetFields()
-        key === 'login'
-            ? this.setState({
-                  action: 'login',
-              })
-            : this.setState({
-                  action: 'register',
-              })
+        key === 'login' ? (this.action = 'login') : (this.action = 'register')
     }
     checkPassword = (rule, value, callback) => {
         const form = this.props.form
@@ -37,8 +31,8 @@ class MyModal extends React.Component {
         }
     }
     checkConfirm = (rule, value, callback) => {
-        const { form, confirmDirty } = this.props
-        if (value && confirmDirty) {
+        const form = this.props.form
+        if (value && this.state.confirmDirty) {
             form.validateFields(['r_confirmPassword'], {
                 force: true,
             })
@@ -58,17 +52,14 @@ class MyModal extends React.Component {
     }
     handleSubmit = e => {
         e.preventDefault()
-        const field = this.field, formData = this.props.form.getFieldsValue()
-        this.props.form.validateFields(
-            field[this.state.action],
-            {},
-            (err, values) => {
-                if (!err) {
-                    this.props.action(this.state.action, formData, this.message)
-                    this.handleCancel()
-                }
-            },
-        )
+        const { field, action, message } = this,
+            formData = this.props.form.getFieldsValue()
+        this.props.form.validateFields(field[action], {}, (err, values) => {
+            if (!err) {
+                this.props.action(action, formData, message)
+                this.handleCancel()
+            }
+        })
     }
     render() {
         const { getFieldDecorator } = this.props.form

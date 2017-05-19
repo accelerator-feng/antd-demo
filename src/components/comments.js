@@ -9,7 +9,6 @@ class Comments extends React.Component {
             comments: '',
         }
     }
-    handleSubmit = () => {}
     componentDidMount() {
         this.getComments()
     }
@@ -18,9 +17,6 @@ class Comments extends React.Component {
         const formdata = this.props.form.getFieldsValue()
         fetch(
             `http://newsapi.gugujiankong.com/Handler.ashx?action=comment&userid=${localStorage.userid}&uniquekey=${this.props.uniquekey}&commnet=${formdata.remark}`,
-            {
-                method: 'GET',
-            },
         )
             .then(response => {
                 response.json()
@@ -32,9 +28,6 @@ class Comments extends React.Component {
     getComments = () => {
         fetch(
             `http://newsapi.gugujiankong.com/Handler.ashx?action=getcomments&uniquekey=${this.props.uniquekey}`,
-            {
-                method: 'GET',
-            },
         )
             .then(response => response.json())
             .then(json => {
@@ -46,9 +39,6 @@ class Comments extends React.Component {
     addUserCollection = () => {
         fetch(
             `http://newsapi.gugujiankong.com/Handler.ashx?action=uc&userid=${localStorage.userid}&uniquekey=${this.props.uniquekey}`,
-            {
-                method: 'GET',
-            },
         )
             .then(response => response.json())
             .then(json => {
@@ -92,6 +82,7 @@ class Comments extends React.Component {
                             <Button type="primary" htmlType="submit">
                                 提交评论
                             </Button>
+                            &nbsp;&nbsp;
                             <Button
                                 type="primary"
                                 htmlType="button"

@@ -32,10 +32,11 @@ export default class PCNewsImageBlock extends React.Component {
                 whiteSpace: 'nowrap',
                 textOverflow: 'ellipsis',
             },
+            { cartTitle, width } = this.props,
             news = this.state.news,
             newsList = news.length
                 ? news.map((newsItem, index) => (
-                      <div key={index} className="imageblock">
+                      <div key={newsItem.uniquekey} className="imageblock">
                           <Link
                               to={`details/${newsItem.uniquekey}`}
                               target="_blank">
@@ -57,9 +58,9 @@ export default class PCNewsImageBlock extends React.Component {
         return (
             <div className="topNewsList">
                 <Card
-                    title={this.props.cartTitle}
+                    title={cartTitle}
                     style={{
-                        width: this.props.width,
+                        width: width,
                     }}>
                     {newsList}
                 </Card>

@@ -19,26 +19,24 @@ export default class PCHeader extends React.Component {
         }
     }
     render() {
-        const userShow = this.props.hasLogined
-            ? <Menu.Item key="logout" className="ant-menu-item register">
-                  <Button type="primary" htmlType="button">
-                      {this.props.userNickName}
-                  </Button>
-                  &nbsp;&nbsp;
-                  <Link to="/usercenter">
-                      <Button type="dashed" htmlType="button">个人中心</Button>
-                  </Link>
-                  &nbsp;&nbsp;
-                  <Button
-                      type="dashed"
-                      htmlType="button"
-                      onClick={this.props.logout}>
-                      退出
-                  </Button>
-              </Menu.Item>
-            : <Menu.Item key="register" className="ant-menu-item register">
-                  <Icon type="appstore" />注册/登陆
-              </Menu.Item>
+        const { hasLogined, userNickName, logout } = this.props,
+            userShow = hasLogined
+                ? <Menu.Item key="logout" className="ant-menu-item register">
+                      <Button type="primary" htmlType="button">
+                          {userNickName}
+                      </Button>
+                      &nbsp;&nbsp;
+                      <Link to="/usercenter">
+                          <Button type="dashed" htmlType="button">个人中心</Button>
+                      </Link>
+                      &nbsp;&nbsp;
+                      <Button type="dashed" htmlType="button" onClick={logout}>
+                          退出
+                      </Button>
+                  </Menu.Item>
+                : <Menu.Item key="register" className="ant-menu-item register">
+                      <Icon type="appstore" />注册/登陆
+                  </Menu.Item>
         return (
             <Row>
                 <Col span={2} />

@@ -26,56 +26,63 @@ export default class UserCenter extends React.Component {
     }
 
     render() {
-        const { userCollection, userComments } = this.state
-        const userCollectionList = userCollection.length
-            ? userCollection.map((uc, index) => (
-                  <Card
-                      key={index}
-                      title={uc.uniquekey}
-                      extra={
-                          <a href={`/#/details/${uc.uniquekey}`}>
-                              查看
-                          </a>
-                      }>
-                      <p>{uc.Title}</p>
-                  </Card>
-              ))
-            : '您还没有收藏任何的新闻，快去收藏一些新闻吧。'
-
-        const userCommentsList = userComments.length
-            ? userComments.map((comment, index) => (
-                  <Card
-                      key={index}
-                      title={`于 ${comment.datetime} 评论了文章 ${comment.uniquekey}`}
-                      extra={
-                          <a href={`/#/details/${comment.uniquekey}`}>
-                              查看
-                          </a>
-                      }>
-                      <p>{comment.Comments}</p>
-                  </Card>
-              ))
-            : '您还没有发表过任何评论。'
-        const props = {
-            action: 'http://newsapi.gugujiankong.com/handler.ashx',
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-            },
-            listType: 'picture-card',
-            defaultFileList: [
-                {
-                    uid: -1,
-                    name: 'xxx.png',
-                    state: 'done',
-                    url: 'https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png',
-                    thumbUrl: 'https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png',
+        const {
+            userCollection,
+            userComments,
+            previewVisible,
+            previewImage,
+        } = this.state,
+            userCollectionList = userCollection.length
+                ? userCollection.map((uc, index) => (
+                      <Card
+                          key={index}
+                          title={uc.uniquekey}
+                          extra={
+                              <a href={`/#/details/${uc.uniquekey}`}>
+                                  查看
+                              </a>
+                          }>
+                          <p>{uc.Title}</p>
+                      </Card>
+                  ))
+                : '您还没有收藏任何的新闻，快去收藏一些新闻吧。',
+            userCommentsList = userComments.length
+                ? userComments.map((comment, index) => (
+                      <Card
+                          key={index}
+                          title={`于 ${comment.datetime} 评论了文章 ${comment.uniquekey}`}
+                          extra={
+                              <a href={`/#/details/${comment.uniquekey}`}>
+                                  查看
+                              </a>
+                          }>
+                          <p>{comment.Comments}</p>
+                      </Card>
+                  ))
+                : '您还没有发表过任何评论。',
+            props = {
+                action: 'http://newsapi.gugujiankong.com/handler.ashx',
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
                 },
-            ],
-            onPreview: file => {
-                this.setState({ previewImage: file.url, previewVisible: true })
+                listType: 'picture-card',
+                defaultFileList: [
+                    {
+                        uid: -1,
+                        name: 'xxx.png',
+                        state: 'done',
+                        url: 'https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png',
+                        thumbUrl: 'https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png',
+                    },
+                ],
+                onPreview: file => {
+                    this.setState({
+                        previewImage: file.url,
+                        previewVisible: true,
+                    })
+                },
             },
-        }
-        const isMobile = this.props.route.isMobile
+            isMobile = this.props.route.isMobile
         return (
             <div>
                 {isMobile
@@ -127,14 +134,12 @@ export default class UserCenter extends React.Component {
                                               </div>
                                           </Upload>
                                           <Modal
-                                              visible={
-                                                  this.state.previewVisible
-                                              }
+                                              visible={previewVisible}
                                               footer={null}
                                               onCancel={this.handleCancel}>
                                               <img
                                                   alt="预览"
-                                                  src={this.state.previewImage}
+                                                  src={previewImage}
                                               />
                                           </Modal>
                                       </div>
